@@ -14,7 +14,6 @@ pipeline {
         }
         stage('Build') {
             steps {
-                bat 'chmod +x mvnw' // Opsiyonel
                 bat '.\\mvnw clean package'
             }
         }
