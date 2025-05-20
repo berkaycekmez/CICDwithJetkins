@@ -2,6 +2,8 @@ pipeline {
     agent any
     environment {
         DOCKER_IMAGE = "berkaycekmez/ci_cd_with_jetkins"
+        // Kubernetes config dosyasının yolu - Windows için
+        KUBECONFIG = "C:\\Users\\BERKAY\\.kube\\config"
     }
     triggers {
         githubPush()
@@ -38,8 +40,8 @@ pipeline {
         }
         stage('Deploy to K8s') {
             steps {
-                bat 'kubectl apply -f deployment.yaml'
-                bat 'kubectl apply -f service.yaml'
+                bat 'kubectl apply --kubeconfig="%KUBECONFIG%" -f deployment.yaml'
+                bat 'kubectl apply --kubeconfig="%KUBECONFIG%" -f service.yaml'
             }
         }
     }
